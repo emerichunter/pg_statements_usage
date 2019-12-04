@@ -22,9 +22,9 @@ Data size written from biggest to smallest :
 SELECT substring(query, 1, 50) AS short_query,
               rows,
               calls,
-              pg_size_pretty(nullif(shared_blks_dirtied + local_blks_dirtied, 0) * current_setting('block_size')) AS total_dirtied,
-              pg_size_pretty(nullif(shared_blks_written + local_blks_written, 0) * current_setting('block_size')) AS total_written,
-              pg_size_pretty(temp_blocks_written * current_setting('block_size')) AS temp_written
+              pg_size_pretty(nullif(shared_blks_dirtied + local_blks_dirtied, 0) * current_setting('block_size')::numeric) AS total_dirtied,
+              pg_size_pretty(nullif(shared_blks_written + local_blks_written, 0) * current_setting('block_size')::numeric) AS total_written,
+              pg_size_pretty(temp_blocks_written * current_setting('block_size')::numeric) AS temp_written
 FROM  pg_stat_statements
 ORDER BY total_written DESC
 LIMIT 20;
